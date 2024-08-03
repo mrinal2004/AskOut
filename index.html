@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Love+Light&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <div class="ques">
+    <h1>Would you like to go out with me on Monday?</h1>
+</div>
+    <button id='runaway-btn'>No &#128532</button>
+    <button id='normal'>Yes &#129392</button>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const button = document.getElementById("runaway-btn");
+
+const animateMove = (element, prop, pixels) =>
+  anime({
+    targets: element,
+    [prop]: `${pixels}px`,
+    easing: "easeOutCirc"
+  });
+
+["mouseover", "click"].forEach(function (el) {
+  button.addEventListener(el, function (event) {
+    const top = getRandomNumber(window.innerHeight - this.offsetHeight);
+    const left = getRandomNumber(window.innerWidth - this.offsetWidth);
+
+    animateMove(this, "left", left).play();
+    animateMove(this, "top", top).play();
+  });
+});
+
+const getRandomNumber = (num) => {
+  return Math.floor(Math.random() * (num + 1));
+};
+const celebrateBtn = document.getElementById('normal');
+
+celebrateBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    // trigger confetti
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+
+    // button animation
+    celebrateBtn.style.transform = 'translate(-150%, -50%) scale(0.95)';
+    setTimeout(() => {
+        celebrateBtn.style.transform = 'translate(-150%, -50%) scale(1)';
+    }, 100);
+});
+    </script>
+</body>
+</html>
